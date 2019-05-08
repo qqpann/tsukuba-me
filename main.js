@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Tray } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain, Tray } = require('electron')
 const path = require('path')
 
 let tray = undefined
@@ -9,8 +9,13 @@ const createTray = () => {
     tray = new Tray(path.join('assets', 'icon.png'))
     // show app name on hover
     tray.setToolTip(app.getName())
+    const contextMenu = Menu.buildFromTemplate([
+        { label: 'Preferences', click () {}, accelerator: 'Cmd+,' },
+        { label: 'Quit', role: 'quit', accelerator: 'Cmd+Q' },
+    ])
+    tray.setContextMenu(contextMenu)
 
-    tray.on('right-click', toggleWindow)
+    tray.on('right-click', tray.popUpContextMenu)
     tray.on('double-click', toggleWindow)
     tray.on('click', (e) => {
         toggleWindow()
