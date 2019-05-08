@@ -1,14 +1,18 @@
 const { app, BrowserWindow, ipcMain, Tray } = require('electron')
+const path = require('path')
 
 let tray = undefined
 let win = undefined
 
 
 const createTray = () => {
-    tray = new Tray('assets/icon.png')
+    tray = new Tray(path.join('assets', 'icon.png'))
+    // show app name on hover
+    tray.setToolTip(app.getName())
+
     tray.on('right-click', toggleWindow)
     tray.on('double-click', toggleWindow)
-    tray.on('click', () => {
+    tray.on('click', (e) => {
         toggleWindow()
     })
 }
