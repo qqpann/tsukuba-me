@@ -1,3 +1,11 @@
 html, body {
     background-color: beige;
 }
+
+.modal {
+    display: none;
+}
+
+.is-shown {
+    display: block;
+}
