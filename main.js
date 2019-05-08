@@ -26,8 +26,17 @@ const createTray = () => {
 
 const createWindow = () => {
     win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 300,
+        height: 450,
+        show: false,
+        frame: false,
+        fullscreenable: false,
+        resizable: false,
+        transparent: true,
+        webPreferences: {
+            // Prevents renderer process code from not running when window is hidden
+            backgroundThrottling: false
+        }
     })
     win.loadFile('index.html')
     win.on('blur', () => {
@@ -50,6 +59,7 @@ const toggleWindow = () => {
         showWindow()
     }
 }
+
 
 app.on('ready', () => {
     createTray()
