@@ -1,0 +1,36 @@
+{
+  "name": "tsukuba-me",
+  "version": "1.0.0",
+  "description": "University of Tsukuba school life utilities. Manaba attend (atmnb) helper, and PaperCut U.T. uploader.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qqhann/tsukuba-me.git"
+  },
+  "keywords": [
+    "Tsukuba",
+    "University",
+    "UniversityOfTsukuba",
+    "TsukubaUniversity",
+    "U.T.",
+    "UT",
+    "Manaba",
+    "atmnb",
+    "PaperCut",
+    "zengaku",
+    "zengakuPrinter"
+  ],
+  "author": "qqhann <qiu.gits@gmail.com> (https://qqhann.dev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qqhann/tsukuba-me/issues"
+  },
+  "homepage": "https://github.com/qqhann/tsukuba-me#readme",
+  "devDependencies": {
+    "electron": "^5.0.1"
+  }
+}
