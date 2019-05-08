@@ -34,6 +34,8 @@ const createWindow = () => {
         resizable: false,
         transparent: true,
         webPreferences: {
+            // to use require() in html
+            nodeIntegration: true,
             // Prevents renderer process code from not running when window is hidden
             backgroundThrottling: false
         }
@@ -64,6 +66,7 @@ const toggleWindow = () => {
 app.on('ready', () => {
     createTray()
     createWindow()
+    win.webContents.openDevTools({mode: 'detach'})
 })
 
 app.on('window-all-closed', () => {
