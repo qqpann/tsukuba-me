@@ -1,14 +1,49 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain, Tray } = require('electron')
 
-function createWindow () {
-    let win = new BrowserWindow({
+let tray = undefined
+let win = undefined
+
+
+const createTray = () => {
+    tray = new Tray('assets/icon.png')
+    tray.on('right-click', toggleWindow)
+    tray.on('double-click', toggleWindow)
+    tray.on('click', () => {
+        toggleWindow()
+    })
+}
+
+const createWindow = () => {
+    win = new BrowserWindow({
         width: 800,
         height: 600,
     })
     win.loadFile('index.html')
+    win.on('blur', () => {
+        if (!win.webContents.isDevToolsOpened()) {
+            win.hide()
+        }
+    })
 }
 
-app.on('ready', createWindow)
+const showWindow = () => {
+    // TODO: position
+    win.show()
+    win.focus()
+}
+
+const toggleWindow = () => {
+    if (win.isVisible()) {
+        win.hide()
+    } else {
+        showWindow()
+    }
+}
+
+app.on('ready', () => {
+    createTray()
+    createWindow()
+})
 
 app.on('window-all-closed', () => {
     // On macOS it is common for applications and their menu bar
