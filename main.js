@@ -13,9 +13,11 @@ const createTray = () => {
         { label: 'Preferences', click () {}, accelerator: 'Cmd+,' },
         { label: 'Quit', role: 'quit', accelerator: 'Cmd+Q' },
     ])
-    tray.setContextMenu(contextMenu)
+    const popMenu = () => {
+        tray.popUpContextMenu(contextMenu)
+    }
 
-    tray.on('right-click', tray.popUpContextMenu)
+    tray.on('right-click', popMenu)
     tray.on('double-click', toggleWindow)
     tray.on('click', (e) => {
         toggleWindow()
