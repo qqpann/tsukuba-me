@@ -6,5 +6,9 @@ console.log('import js')
 Array.prototype.forEach.call(links, (link) => {
     let template = link.import.querySelector('.task-template')
     let clone = document.importNode(template.content, true)
-    document.querySelector('.content').appendChild(clone)
+    if (link.href.match('nav.html')) {
+        document.querySelector('.header').appendChild(clone)
+    } else {
+        document.querySelector('.content').appendChild(clone)
+    }
 })

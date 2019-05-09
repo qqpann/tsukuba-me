@@ -1,8 +1,28 @@
 html, body {
     background-color: beige;
+    height: 100%;
+    width: 100%;
 }
 
-.modal {
+/* Grid */
+#body-grid {
+    display: grid;
+    grid-template-areas: 
+    "h"
+    "m"
+    "f";
+    grid-template-rows: auto 1fr auto;
+}
+
+#main-grid {
+    display: grid;
+    grid-template-rows: repeat(3 1fr);
+    align-content: center;
+}
+
+.ml-12 { margin-left: 12px;}
+
+.my-modal {
     display: none;
 }
 

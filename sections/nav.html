@@ -1,10 +1,18 @@
 <template class="task-template">
-    <div>
-        <div>Tsukuba Me</div>
-        <div><a data-modal="login">Log in</a></div>
-        <div><a data-modal="atmnb">manaba</a></div>
-        <div><a data-modal="print">print</a></div>
-    </div>
+    <nav class="nav-extended">
+        <div class="nav-wrapper">
+            <span id="nav-title" class="ml-12">Tsukuba Me</span>
+            <ul id="nav-login" class="right">
+                <li><a data-modal="login">Log in</a></li>
+            </ul>
+        </div>
+        <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab" id="nav-atmnb"><a data-modal="atmnb">manaba</a></li>
+                <li class="tab" id="nav-print"><a data-modal="print">print</a></li>
+            </ul>
+        </div>
+    </nav>
     <script>
         require('./renderer/nav')
     </script>
