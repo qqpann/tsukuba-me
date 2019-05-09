@@ -20,6 +20,8 @@ html, body {
     align-content: center;
 }
 
+.ml-12 { margin-left: 12px;}
+
 .my-modal {
     display: none;
 }
