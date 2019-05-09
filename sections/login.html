@@ -1,7 +1,13 @@
 <template class="task-template">
-    <section id="login-modal" class="modal">
-        <input type="text" name="username" id="username">
-        <input type="password" name="password" id="password">
+    <section id="login-modal" class="my-modal">
+        <div class="input-field">
+            <input type="text" name="username" id="username">
+            <label for="username">User name</label>
+        </div>
+        <div class="input-field">
+            <input type="password" name="password" id="password">
+            <label for="password">Password</label>
+        </div>
 
         <script>require('./renderer/login')</script>
     </section>

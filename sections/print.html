@@ -1,6 +1,14 @@
 <template class="task-template">
-    <section id="print-modal" class="modal">
-        <input type="file" name="prints" id="prints" multiple>
+    <section id="print-modal" class="my-modal">
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>File</span>
+                <input type="file" name="prints" id="prints" multiple>
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+            </div>
+        </div>
         <button id="print-upload" class="btn">Upload</button>
 
         <script>require('./renderer/print')</script>

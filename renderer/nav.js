@@ -14,7 +14,7 @@ const handleModalTrigger = (e) => {
 }
 
 const hideAllModals = () => {
-    const modals = document.querySelectorAll('.modal.is-shown')
+    const modals = document.querySelectorAll('.my-modal.is-shown')
     Array.prototype.forEach.call(modals, (modal) => {
         modal.classList.remove('is-shown')
     })
