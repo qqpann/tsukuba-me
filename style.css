@@ -1,5 +1,21 @@
 html, body {
     background-color: beige;
+    height: 100%;
+    width: 100%;
+}
+
+/* Grid */
+#body-grid {
+    display: grid;
+    grid-template-areas: 
+    "h"
+    "m"
+    "f";
+    grid-template-rows: auto 1fr auto;
+}
+
+main>* {
+    height: 100%;
 }
 
 .my-modal {
