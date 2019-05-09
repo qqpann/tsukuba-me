@@ -48,8 +48,17 @@ const createWindow = () => {
     })
 }
 
+const getWindowPosition = () => {
+    const windowBounds = win.getBounds()
+    const trayBounds = tray.getBounds()
+    const x = Math.round(trayBounds.x + (trayBounds.width / 2) - (windowBounds.width / 2))
+    const y = Math.round(trayBounds.y + trayBounds.height + 4)
+    return {x: x, y: y}
+}
+
 const showWindow = () => {
-    // TODO: position
+    const position = getWindowPosition()
+    win.setPosition(position.x, position.y, false)
     win.show()
     win.focus()
 }
