@@ -42,7 +42,10 @@ const createWindow = () => {
     })
     win.loadFile('index.html')
     win.on('blur', () => {
-        if (!win.webContents.isDevToolsOpened()) {
+        // Hide window on Blur (lose focus)
+        // There is a issue: https://github.com/electron/electron/issues/6624
+        // , that it blurs even when drag files into the window on MS-Windows
+        if (process.platform === 'darwin') {
             win.hide()
         }
     })
