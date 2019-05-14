@@ -7,16 +7,18 @@ const attendBtn = document.getElementById('attend-submit')
 
 attendBtn.addEventListener('click', (e) => {
     console.log(attendNum.value)
-    attendManaba()
+    // assert not null
+    let username = store.get('username')
+    let password = store.get('password')
+    let attendnum = attendNum.value
+  
+    attendManaba(username, password, attendnum, (text)=>{
+      M.toast({html: text, class: 'rounded'})
+    })
 })
 
-const attendManaba = async() => {
-    // assert not null
-    const username = await store.get('username')
-    const password = await store.get('password')
-    const attendnum = attendNum.value
-  
-    const br = await puppeteer.launch({headless: true});
+const attendManaba = async(username, password, attendnum, messageCallback, isHeadless = true) => {
+    const br = await puppeteer.launch({headless: isHeadless});
     const page = await br.newPage();
   
     await page.goto('https://atmnb.tsukuba.ac.jp/attend/tsukuba');
@@ -28,8 +30,12 @@ const attendManaba = async() => {
       console.log('FAILED: div.errmsg detected.')
       const out = await page.evaluate(() => document.querySelector('.errmsg').innerText);
       console.log(out)
+      // 無効な出席番号
+      messageCallback(out);
     } else if (await page.$$eval('input', inputs => inputs.length) == 2) {
       console.log('INFO: attend number successfully received.');
+      // 出席番号受領した
+      // 学籍番号とパスワードを入力
       await page.type('input#username', username);
       await page.type('input#password', password);
       await page.click('button[type="submit"]');
@@ -38,17 +44,26 @@ const attendManaba = async() => {
       await page.waitFor('.attend-box-body, .form-error');  // wait for .attend-box-body or .errmsg.
       if (await page.$('.attend-box-body')) {
         console.log('INFO: Successfully authorized.');
+        if (await page.$('attendbox-button') && isHeadless) {
+          br.close();
+          attendManaba(username, password, attendnum, messageCallback, false)
+          return
+        } else if (await page.$('attendbox-button') && isHeadless) {
+          return
+        }
         const out = await page.evaluate(() => document.querySelector('.attend-box-body').innerText);
         console.log(out);
+        messageCallback(out);
       } else if (await page.$('.form-error')) {
         console.log('FAILED: Wrong Username or Password.');
         const out = await page.evaluate(() => document.querySelector('.form-error').innerText);
         //const out = await page.evaluate(() => document.querySelector('.form-error').textContent);
         console.log(out);
+        // 学籍番号またはパスワードが違います
+        messageCallback(out);
       } else {
         console.log('Unknown error');
       }
-  
     } else {
       console.log('Unknown error');
     }
