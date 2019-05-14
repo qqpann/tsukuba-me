@@ -8,9 +8,9 @@ const attendBtn = document.getElementById('attend-submit')
 attendBtn.addEventListener('click', (e) => {
     console.log(attendNum.value)
     // assert not null
-    let username = store.get('username')
-    let password = store.get('password')
-    let attendnum = attendNum.value
+    const username = store.get('username')
+    const password = store.get('password')
+    const attendnum = attendNum.value
   
     attendManaba(username, password, attendnum, (text)=>{
       M.toast({html: text, class: 'rounded'})
