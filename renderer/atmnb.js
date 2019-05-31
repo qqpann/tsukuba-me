@@ -18,7 +18,6 @@ attendBtn.addEventListener('click', (e) => {
     let atmnb = attendManaba(username, password, attendnum, feedbackMessage)
     atmnb.then((needFill)=>{
       if (needFill) {
-        console.log(needFill)
         attendManaba(username, password, attendnum, feedbackMessage, false)
       }
     })

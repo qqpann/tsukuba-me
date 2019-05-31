@@ -5,7 +5,15 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   },
   "repository": {
     "type": "git",
@@ -31,11 +39,12 @@
   },
   "homepage": "https://github.com/qqhann/tsukuba-me#readme",
   "devDependencies": {
-    "electron": "^5.0.1"
+    "electron": "^5.0.2",
+    "electron-builder": "^20.41.0"
   },
   "dependencies": {
     "electron-store": "^3.2.0",
-    "materialize-css": "^1.0.0-rc.2",
-    "puppeteer": "^1.15.0"
+    "materialize-css": "^1.0.0",
+    "puppeteer": "^1.17.0"
   }
 }
