@@ -6,7 +6,7 @@ let win = undefined
 
 
 const createTray = () => {
-    tray = new Tray(path.join('assets', 'icon.png'))
+    tray = new Tray(path.join(__dirname, 'assets/icon.png'))
     // show app name on hover
     tray.setToolTip(app.getName())
     const contextMenu = Menu.buildFromTemplate([
@@ -40,7 +40,7 @@ const createWindow = () => {
             backgroundThrottling: false
         }
     })
-    win.loadFile('index.html')
+    win.loadURL(path.join('file://', __dirname, 'index.html'))
     win.on('blur', () => {
         // Hide window on Blur (lose focus)
         // There is a issue: https://github.com/electron/electron/issues/6624

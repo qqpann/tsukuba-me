@@ -18,7 +18,8 @@
         <main id="main-grid" class="content container center-align"></main>
         <footer id="footer-grid"></footer>
         <script>
-            require('./renderer/import')
+            const path = require('path')
+            require(path.join(__dirname, '/renderer/import'))
         </script>
     </body>
 </html>
