@@ -45,6 +45,7 @@
   "dependencies": {
     "electron-store": "^3.2.0",
     "materialize-css": "^1.0.0",
-    "puppeteer": "^1.17.0"
+    "puppeteer": "^1.17.0",
+    "puppeteer-core": "^1.17.0"
   }
 }

@@ -1,6 +1,6 @@
 const Store = require('electron-store')
 const store = new Store()
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer-core')
 
 const attendNum = document.getElementById('attend-number')
 const attendBtn = document.getElementById('attend-submit')
@@ -24,7 +24,10 @@ attendBtn.addEventListener('click', (e) => {
 })
 
 const attendManaba = async(username, password, attendnum, messageCallback, isHeadless = true) => {
-    const br = await puppeteer.launch({headless: isHeadless});
+    const br = await puppeteer.launch({
+      headless: isHeadless,
+      executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    });
     const page = await br.newPage();
   
     await page.goto('https://atmnb.tsukuba.ac.jp/attend/tsukuba');
