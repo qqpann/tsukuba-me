@@ -78,7 +78,8 @@ const toggleWindow = () => {
 app.on('ready', () => {
     createTray()
     createWindow()
-    win.webContents.openDevTools({mode: 'detach'})
+    // Debug
+    // win.webContents.openDevTools({mode: 'detach'})
 })
 
 app.on('window-all-closed', () => {

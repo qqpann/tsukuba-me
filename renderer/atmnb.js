@@ -6,7 +6,6 @@ const attendNum = document.getElementById('attend-number')
 const attendBtn = document.getElementById('attend-submit')
 
 attendBtn.addEventListener('click', (e) => {
-    console.log(attendNum.value)
     // assert not null
     const username = store.get('username')
     const password = store.get('password')
@@ -83,5 +82,4 @@ const attendManaba = async(username, password, attendnum, messageCallback, isHea
     if (isHeadless) {
       br.close()
     }
-    
   }
