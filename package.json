@@ -8,11 +8,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "rebuild": "electron-rebuild -f -w keytar"
   },
   "build": {
-    "asar":"false",
-    "appId": "your.id",
+    "asar": "false",
+    "appId": "io.github.tsukuba-me",
     "mac": {
       "category": "your.app.category.type"
     }
@@ -42,7 +43,8 @@
   "homepage": "https://github.com/qqhann/tsukuba-me#readme",
   "devDependencies": {
     "electron": "^5.0.2",
-    "electron-builder": "^20.41.0"
+    "electron-builder": "^20.41.0",
+    "electron-rebuild": "^1.8.5"
   },
   "dependencies": {
     "electron-store": "^3.2.0",
