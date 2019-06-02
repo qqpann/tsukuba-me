@@ -21,7 +21,10 @@
     "asarUnpack": "node_modules/puppeteer/.local-chromium/**/*",
     "appId": "io.github.tsukuba-me",
     "mac": {
-      "category": "public.app-category.productivity"
+      "category": "public.app-category.productivity",
+      "extendInfo": {
+        "LSUIElement": 1
+      }
     },
     "win": {
       "target": "nsis"
