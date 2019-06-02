@@ -13,6 +13,7 @@
     "dist:mac": "electron-builder --mac",
     "dist:lnx": "electron-builder --linux",
     "dist:win": "electron-builder --windows",
+    "release": "build",
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
@@ -30,6 +31,9 @@
         "deb"
       ],
       "category": "Utility"
+    },
+    "publish": {
+      "provider": "github"
     }
   },
   "repository": "github:tsukuba-me/tsukuba-me",
