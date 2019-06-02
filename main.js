@@ -1,6 +1,9 @@
 const { app, BrowserWindow, Menu, ipcMain, Tray } = require('electron')
+const { autoUpdater } = require('electron-updater')
 const { is } = require('electron-util')
 const path = require('path')
+const Store = require('electron-store')
+const store = new Store()
 
 let tray = undefined
 let win = undefined
@@ -12,6 +15,7 @@ const createTray = () => {
     tray.setToolTip(app.getName())
     const contextMenu = Menu.buildFromTemplate([
         { label: 'Preferences', click () {}, accelerator: 'Cmd+,' },
+        { label: 'Auto Update', type: 'checkbox', checked: store.get('should-auto-update'), click: toggleAutoUpdate },
         { label: 'Quit', role: 'quit', accelerator: 'Cmd+Q' },
     ])
     const popMenu = () => {
@@ -78,8 +82,11 @@ const toggleWindow = () => {
 
 app.on('ready', () => {
     app.dock.hide()
+    store.set('should-auto-update', store.get('should-auto-update') || true)
     createTray()
     createWindow()
+    // Auto Update
+    if (store.get('should-auto-update')) { console.log('auto update on'); autoUpdater.checkForUpdatesAndNotify() }
     // Debug
     if (is.development) { win.webContents.openDevTools({mode: 'detach'}) }
 })
@@ -103,3 +110,6 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+const toggleAutoUpdate = (menuItem, win, e) => {
+    store.set('should-auto-update', menuItem.checked)
+}
