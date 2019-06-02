@@ -15,7 +15,7 @@
     "asar": "false",
     "appId": "io.github.tsukuba-me",
     "mac": {
-      "category": "your.app.category.type"
+      "category": "public.app-category.productivity"
     }
   },
   "repository": {
