@@ -1,36 +1,28 @@
-const Store = require('electron-store')
-const store = new Store()
-const puppeteer = require('puppeteer')
+const { PuppeteerWrapper } = require('./puppeteer-wrapper')
 
 const printsInput = document.getElementById('prints')
 const printsUploadBtn = document.getElementById('print-upload')
 
-let files = new Array()
-
-printsInput.addEventListener('input', (e) => {
-    console.log(e.target.files)
-    Array.prototype.forEach.call(e.target.files, (file) => {
-        files.push(file.path)
-    })
-    console.log(files)
-})
 
 printsUploadBtn.addEventListener('click', (e) => {
-    uploadPrint(username, password)
+    const files = new Array()
+    Array.prototype.forEach.call(printsInput.files, (file) => {
+        files.push(file.path)
+    })
+    uploadPrint(files)
 })
 
-const uploadPrint = async() => {
-    // assert not null
-    const username = await store.get('username')
-    const password = await store.get('password')
-  
-    const br = await puppeteer.launch({headless: true});
-    const page = await br.newPage();
+const uploadPrint = async(files) => {
+    const pw = new PuppeteerWrapper()
+    await pw.setUp()
+    const page = await pw.newPage();
+
     await page.setViewport({width: 1000, height: 800});
   
     await page.goto('https://papercut-p01.u.tsukuba.ac.jp:9192/user');
-    await page.type('input#inputUsername', username);
-    await page.type('input#inputPassword', password);
+    console.log(pw.username + pw.password)
+    await page.type('input#inputUsername', pw.username);
+    await page.type('input#inputPassword', pw.password);
     await page.click('input[type="submit"]');
   
     await page.waitFor('a#linkUserWebPrint, .errorMessage');
@@ -57,9 +49,8 @@ const uploadPrint = async() => {
         console.log(infoMsg);
         const printJobs = await page.evaluate(() => document.querySelector('#main > div.web-print-intro > div:nth-child(3) > span > table').innerText);
         console.log(printJobs);
-        //await page.screenshot({path: '/Users/qiushi/Desktop/tmp.png', fullPage: true});
-        br.close();
     } else {
         console.log('Unknown error');
     }
+    pw.cleanUp()
 }

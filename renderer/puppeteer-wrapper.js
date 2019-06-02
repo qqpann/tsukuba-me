@@ -9,23 +9,22 @@ const appName = app.getName()
 class PuppeteerWrapper {
     constructor (options) {
         this._options = options || { headless: true }
-        this.setUp()
     }
 
     async setUp () {
-        this.username = this.getUsername()
-        this.password = this.getPassword()
+        this.username = await this._getUsername()
+        this.password = await this._getPassword()
         this.br = await puppeteer.launch({
             headless: this._options.headless
         })
     }
 
-    getUsername () {
+    async _getUsername () {
         let username = store.get('username')
         return username
     }
 
-    getPassword () {
+    async _getPassword () {
         return keytar.getPassword(appName, this.username)
     }
 
