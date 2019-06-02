@@ -9,6 +9,10 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "dist:all": "electron-builder -mwl",
+    "dist:mac": "electron-builder --mac",
+    "dist:lnx": "electron-builder --linux",
+    "dist:win": "electron-builder --windows",
     "rebuild": "electron-rebuild -f -w keytar"
   },
   "build": {
@@ -17,6 +21,13 @@
     "appId": "io.github.tsukuba-me",
     "mac": {
       "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": ["deb"],
+      "category": "Utility"
     }
   },
   "repository": {
