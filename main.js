@@ -77,6 +77,7 @@ const toggleWindow = () => {
 
 
 app.on('ready', () => {
+    app.dock.hide()
     createTray()
     createWindow()
     // Debug
