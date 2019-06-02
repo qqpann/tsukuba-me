@@ -7,9 +7,7 @@ attendBtn.addEventListener('click', (e) => {
     // assert not null
     const attendnum = attendNum.value
   
-    const feedbackMessage = (text) => {
-      M.toast({html: text, class: 'rounded'})
-    } 
+    const feedbackMessage = (text) => { M.toast({html: text, class: 'rounded'}) } 
     let atmnb = attendManaba(attendnum, feedbackMessage)
     atmnb.then((needFill)=>{
       if (needFill) {

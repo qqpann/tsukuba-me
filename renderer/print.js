@@ -9,10 +9,11 @@ printsUploadBtn.addEventListener('click', (e) => {
     Array.prototype.forEach.call(printsInput.files, (file) => {
         files.push(file.path)
     })
-    uploadPrint(files)
+    const feedbackMessage = (text) => { M.toast({html: text, class: 'rounded'}) } 
+    uploadPrint(files, feedbackMessage)
 })
 
-const uploadPrint = async(files) => {
+const uploadPrint = async(files, messageCallback) => {
     const pw = new PuppeteerWrapper()
     await pw.setUp()
     const page = await pw.newPage();
@@ -47,8 +48,11 @@ const uploadPrint = async(files) => {
         await page.waitFor('.infoMessage');
         const infoMsg = await page.evaluate(() => document.querySelector('.infoMessage').innerText);
         console.log(infoMsg);
-        const printJobs = await page.evaluate(() => document.querySelector('#main > div.web-print-intro > div:nth-child(3) > span > table').innerText);
-        console.log(printJobs);
+        const printJobs = await page.evaluate(() => {
+            const trs = Array.from(document.querySelectorAll('#main > div.web-print-intro > div:nth-child(3) > span > table > tbody > tr td.documentNameColumnValue'))
+            return trs.map(tr => tr.innerText)
+        });
+        messageCallback(`送信完了. ${printJobs[0]}と他${printJobs.length - 1}のアイテムがキューで待機中`)
     } else {
         console.log('Unknown error');
     }
