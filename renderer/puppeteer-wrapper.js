@@ -3,6 +3,7 @@ const { app } = require('electron').remote
 const keytar = require('keytar')
 const Store = require('electron-store')
 const store = new Store()
+const { fixPathForAsarUnpack } = require('electron-util')
 
 const appName = app.getName()
 
@@ -30,7 +31,7 @@ class PuppeteerWrapper {
     }
 
     _getChromiumExecPath () {
-        return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked')
+        return fixPathForAsarUnpack(puppeteer.executablePath())
     }
 
     async newPage () {
