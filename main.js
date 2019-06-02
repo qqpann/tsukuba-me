@@ -1,4 +1,5 @@
 const { app, BrowserWindow, Menu, ipcMain, Tray } = require('electron')
+const { is } = require('electron-util')
 const path = require('path')
 
 let tray = undefined
@@ -45,7 +46,7 @@ const createWindow = () => {
         // Hide window on Blur (lose focus)
         // There is a issue: https://github.com/electron/electron/issues/6624
         // , that it blurs even when drag files into the window on MS-Windows
-        if (process.platform === 'darwin') {
+        if (is.macos) {
             win.hide()
         }
     })
@@ -79,13 +80,13 @@ app.on('ready', () => {
     createTray()
     createWindow()
     // Debug
-    // win.webContents.openDevTools({mode: 'detach'})
+    if (is.development) { win.webContents.openDevTools({mode: 'detach'}) }
 })
 
 app.on('window-all-closed', () => {
     // On macOS it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== 'darwin') {
+    if (!is.macos) {
         app.quit()
     }
 })
