@@ -15,7 +15,8 @@ class PuppeteerWrapper {
         this.username = await this._getUsername()
         this.password = await this._getPassword()
         this.br = await puppeteer.launch({
-            headless: this._options.headless
+            headless: this._options.headless,
+            executablePath: this._getChromiumExecPath()
         })
     }
 
@@ -26,6 +27,10 @@ class PuppeteerWrapper {
 
     async _getPassword () {
         return keytar.getPassword(appName, this.username)
+    }
+
+    _getChromiumExecPath () {
+        return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked')
     }
 
     async newPage () {

@@ -12,7 +12,8 @@
     "rebuild": "electron-rebuild -f -w keytar"
   },
   "build": {
-    "asar": "false",
+    "asar": true,
+    "asarUnpack": "node_modules/puppeteer/.local-chromium/**/*",
     "appId": "io.github.tsukuba-me",
     "mac": {
       "category": "public.app-category.productivity"
