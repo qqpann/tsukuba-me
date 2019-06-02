@@ -1,23 +1,16 @@
-const { app } = require('electron').remote
-const keytar = require('keytar')
-const Store = require('electron-store')
-const store = new Store()
-const puppeteer = require('puppeteer')
+const { PuppeteerWrapper } = require('./puppeteer-wrapper')
 
-const appName = app.getName() // will deprecate. use app.name in the future
 const attendNum = document.getElementById('attend-number')
 const attendBtn = document.getElementById('attend-submit')
 
 attendBtn.addEventListener('click', (e) => {
     // assert not null
-    const username = store.get('username')
-    const password = keytar.getPassword(appName, username)
     const attendnum = attendNum.value
   
     const feedbackMessage = (text) => {
       M.toast({html: text, class: 'rounded'})
     } 
-    let atmnb = attendManaba(username, password, attendnum, feedbackMessage)
+    let atmnb = attendManaba(attendnum, feedbackMessage)
     atmnb.then((needFill)=>{
       if (needFill) {
         attendManaba(username, password, attendnum, feedbackMessage, false)
@@ -25,11 +18,10 @@ attendBtn.addEventListener('click', (e) => {
     })
 })
 
-const attendManaba = async(username, password, attendnum, messageCallback, isHeadless = true) => {
-    const br = await puppeteer.launch({
-      headless: isHeadless,
-    });
-    const page = await br.newPage();
+const attendManaba = async(attendnum, messageCallback, isHeadless=true) => {
+    const pw = new PuppeteerWrapper({headless: isHeadless})
+    await pw.setUp()
+    const page = await pw.newPage();
   
     await page.goto('https://atmnb.tsukuba.ac.jp/attend/tsukuba');
     await page.type('input[name="code"]', attendnum);
@@ -46,8 +38,8 @@ const attendManaba = async(username, password, attendnum, messageCallback, isHea
       console.log('INFO: attend number successfully received.');
       // 出席番号受領した
       // 学籍番号とパスワードを入力
-      await page.type('input#username', username);
-      await page.type('input#password', password);
+      await page.type('input#username', pw.username);
+      await page.type('input#password', pw.password);
       await page.click('button[type="submit"]');
   
       // Wait for the result and show in terminal.
