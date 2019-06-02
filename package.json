@@ -32,10 +32,7 @@
       "category": "Utility"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/qqhann/tsukuba-me.git"
-  },
+  "repository": "github:tsukuba-me/tsukuba-me",
   "keywords": [
     "Tsukuba",
     "University",
