@@ -1,14 +1,17 @@
+const { app } = require('electron').remote
+const keytar = require('keytar')
 const Store = require('electron-store')
 const store = new Store()
 const puppeteer = require('puppeteer')
 
+const appName = app.getName() // will deprecate. use app.name in the future
 const attendNum = document.getElementById('attend-number')
 const attendBtn = document.getElementById('attend-submit')
 
 attendBtn.addEventListener('click', (e) => {
     // assert not null
     const username = store.get('username')
-    const password = store.get('password')
+    const password = keytar.getPassword(appName, username)
     const attendnum = attendNum.value
   
     const feedbackMessage = (text) => {
