@@ -79,9 +79,13 @@ const toggleWindow = () => {
     }
 }
 
+const hideDock = () => {
+    if (is.macos) { app.dock.hide() }
+}
+
 
 app.on('ready', () => {
-    app.dock.hide()
+    hideDock()
     store.set('should-auto-update', store.get('should-auto-update') || true)
     createTray()
     createWindow()
