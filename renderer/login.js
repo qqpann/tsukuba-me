@@ -15,6 +15,7 @@ loginBtn.addEventListener('click', (e) => {
     store.set('username', username)
     keytar.setPassword(appName, username, password)
 
+    M.toast({html: '情報を保存しました'})
     passwordInput.value = null
 })
 
