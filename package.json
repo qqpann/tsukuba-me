@@ -1,13 +1,12 @@
 {
   "name": "tsukuba-me",
   "productName": "TsukubaMe",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "University of Tsukuba school life utilities. Manaba attend (atmnb) helper, and PaperCut U.T. uploader.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "dist:all": "electron-builder -mwl",
     "dist:mac": "electron-builder --mac",
@@ -20,6 +19,7 @@
     "asar": true,
     "asarUnpack": "node_modules/puppeteer/.local-chromium/**/*",
     "appId": "io.github.tsukuba-me",
+    "artifactName": "${productName}_${arch}.${ext}",
     "mac": {
       "category": "public.app-category.productivity",
       "extendInfo": {
@@ -41,7 +41,7 @@
     }
   },
   "mac": {
-    "hardenedRuntime" : true,
+    "hardenedRuntime": true,
     "gatekeeperAssess": false,
     "entitlements": "build/entitlements.mac.plist",
     "entitlementsInherit": "build/entitlements.mac.plist"
