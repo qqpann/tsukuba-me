@@ -1,7 +1,7 @@
 {
   "name": "tsukuba-me",
   "productName": "TsukubaMe",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "University of Tsukuba school life utilities. Manaba attend (atmnb) helper, and PaperCut U.T. uploader.",
   "main": "main.js",
   "scripts": {
@@ -68,7 +68,7 @@
   "bugs": {
     "url": "https://github.com/qqhann/tsukuba-me/issues"
   },
-  "homepage": "https://github.com/qqhann/tsukuba-me#readme",
+  "homepage": "https://tsukuba-me.github.io",
   "devDependencies": {
     "electron": "^6",
     "electron-builder": "^21.2",
