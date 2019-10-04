@@ -16,6 +16,7 @@ const createTray = () => {
     const contextMenu = Menu.buildFromTemplate([
         { label: 'Preferences', click () {}, accelerator: 'Cmd+,' },
         { label: 'Auto Update', type: 'checkbox', checked: store.get('should-auto-update'), click: toggleAutoUpdate },
+        { label: 'Start at Login', type: 'checkbox', checked: store.get('start-at-login'), click: toggleStartAtLogin },
         { label: 'Quit', role: 'quit', accelerator: 'Cmd+Q' },
     ])
     const popMenu = () => {
@@ -51,6 +52,13 @@ const createWindow = () => {
         // There is a issue: https://github.com/electron/electron/issues/6624
         // , that it blurs even when drag files into the window on MS-Windows
         if (is.macos) {
+            win.hide()
+        }
+    })
+    win.on('close', (e) => {
+        if (is.macos) {
+            // Do not really close window with Command+W, but just hide window (on mac).
+            e.preventDefault()
             win.hide()
         }
     })
@@ -116,4 +124,19 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 const toggleAutoUpdate = (menuItem, win, e) => {
     store.set('should-auto-update', menuItem.checked)
+}
+const toggleStartAtLogin = (menuItem, win, e) => {
+    const startAtLogin = menuItem.checked
+    const appFolder = path.dirname(process.execPath)
+    const updateExe = path.resolve(appFolder, '..', 'Update.exe')
+    const exeName = path.basename(process.execPath)
+
+    app.setLoginItemSettings({
+        openAtLogin: startAtLogin,
+        path: updateExe,
+        args: [
+            '--processStart', `"${exeName}"`,
+            '--process-start-args', `"--hidden"`
+        ]
+    })
 }
