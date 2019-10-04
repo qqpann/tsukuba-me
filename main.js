@@ -55,13 +55,6 @@ const createWindow = () => {
             win.hide()
         }
     })
-    win.on('close', (e) => {
-        if (is.macos) {
-            // Do not really close window with Command+W, but just hide window (on mac).
-            e.preventDefault()
-            win.hide()
-        }
-    })
 }
 
 const getWindowPosition = () => {
