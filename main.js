@@ -118,8 +118,10 @@ app.on('activate', () => {
 const toggleAutoUpdate = (menuItem, win, e) => {
     store.set('should-auto-update', menuItem.checked)
 }
+
 const toggleStartAtLogin = (menuItem, win, e) => {
     const startAtLogin = menuItem.checked
+    store.set('start-at-login', menuItem.checked)
     const appFolder = path.dirname(process.execPath)
     const updateExe = path.resolve(appFolder, '..', 'Update.exe')
     const exeName = path.basename(process.execPath)
