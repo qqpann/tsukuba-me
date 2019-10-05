@@ -1,7 +1,7 @@
 {
   "name": "tsukuba-me",
   "productName": "TsukubaMe",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "University of Tsukuba school life utilities. Manaba attend (atmnb) helper, and PaperCut U.T. uploader.",
   "main": "main.js",
   "scripts": {
