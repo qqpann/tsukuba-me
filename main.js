@@ -8,6 +8,10 @@ const store = new Store()
 let tray = undefined
 let win = undefined
 
+// if (is.development) {
+//     store.delete('should-auto-update')
+//     store.delete('start-at-login')
+// }
 
 const createTray = () => {
     tray = new Tray(path.join(__dirname, 'assets/icon.png'))
@@ -15,8 +19,8 @@ const createTray = () => {
     tray.setToolTip(app.getName())
     const contextMenu = Menu.buildFromTemplate([
         { label: 'Preferences', click () {}, accelerator: 'Cmd+,' },
-        { label: 'Auto Update', type: 'checkbox', checked: store.get('should-auto-update'), click: toggleAutoUpdate },
-        { label: 'Start at Login', type: 'checkbox', checked: store.get('start-at-login'), click: toggleStartAtLogin },
+        { label: 'Auto Update', type: 'checkbox', checked: store.get('should-auto-update', true), click: toggleAutoUpdate },
+        { label: 'Start at Login', type: 'checkbox', checked: store.get('start-at-login', false), click: toggleStartAtLogin },
         { label: 'Quit', role: 'quit', accelerator: 'Cmd+Q' },
     ])
     const popMenu = () => {
@@ -87,11 +91,10 @@ const hideDock = () => {
 
 app.on('ready', () => {
     hideDock()
-    store.set('should-auto-update', store.get('should-auto-update') || true)
     createTray()
     createWindow()
     // Auto Update
-    if (store.get('should-auto-update')) { console.log('auto update on'); autoUpdater.checkForUpdatesAndNotify() }
+    if (store.get('should-auto-update', true)) { autoUpdater.checkForUpdatesAndNotify() }
     // Debug
     if (is.development) { win.webContents.openDevTools({mode: 'detach'}) }
 })
