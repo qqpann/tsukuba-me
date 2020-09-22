@@ -70,7 +70,7 @@
   },
   "homepage": "https://tsukuba-me.github.io",
   "devDependencies": {
-    "electron": "^6",
+    "electron": "^7",
     "electron-builder": "^21.2",
     "electron-notarize": "^0.1.1"
   },
